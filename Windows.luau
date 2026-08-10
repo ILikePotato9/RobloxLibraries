@@ -48,3 +48,4 @@ local function Window(name,title,screengui)
     frame.Parent = screengui
     return window
 end
+return Window
