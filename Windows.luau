@@ -6,6 +6,7 @@ local function LibraryImport()
     local screengui = Instance.new("ScreenGui")
     screengui.ResetOnSpawn = false
     screengui.Name = "ILikePotato9LibraryGui"
+    screengui.Parent = playergui
     function Library:CreateWindow(title,name)
         local window = Instance.new("Frame")
         window.Name = name
