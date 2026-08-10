@@ -1,38 +1,50 @@
-local Library = {}
-local function LibraryImport()
-    local players = game:GetService("Players")
-    local player = players.LocalPlayer
-    local playergui = player:WaitForChild("PlayerGui")
-    local screengui = Instance.new("ScreenGui")
-    screengui.ResetOnSpawn = false
-    screengui.Name = "ILikePotato9LibraryGui"
-    screengui.Parent = playergui
-    function Library:CreateWindow(title,name)
-        local window = Instance.new("Frame")
-        window.Name = name
-        window.Size = UDim2.new(0.5,0,0.5,0)
-        window.AnchorPoint = Vector2.new(0.5,0.5)
-        window.Position = UDim2.new(0.5,0,0.5,0)
-        window.BackgroundColor3 = Color3.fromHex("2e2e2e")
-        local topbar = Instance.new("Frame")
-        topbar.Name = "TopBar"
-        topbar.Size = UDim2.new(1,0,0.1,0)
-        topbar.BackgroundColor3 = Color3.fromHex("1e1e1e")
-        topbar.Parent = window
-        local titletext = Instance.new("TextLabel")
-        titletext.Name = "Title"
-        titletext.Size = UDim2.new(0.5,0,1,0)
-        titletext.Text = title
-        titletext.BackgroundTransparency = 1
-        titletext.TextColor3 = Color3.fromHex("ffffff")
-        titletext.TextScaled = true
-        titletext.TextXAlignment = Enum.TextXAlignment.Left
-        titletext.TextYAlignment = Enum.TextYAlignment.Center
-        titletext.Font = Enum.Font.GothamBold
-        titletext.Parent = topbar
-        window.Parent = screengui
-        return window
-    end
+local function Window(name,title,screengui)
+    local frame = Instance.new("Frame")
+    local topbar = Instance.new("Frame")
+    local titletext = Instance.new("TextLabel")
+    local data = {
+        Title = title,
+        MainColor = Color3.fromHex("1e1e1e"),
+        AccentColor = Color3.fromHex("00ffff"),
+        MainColor2 = Color3.fromHex("000000"),
+        TextColor = Color3.fromHex("ffffff")
+    }
+    local window = {}
+    setmetatable(window,{
+        __index = data,
+        __newindex = function(self,key,value)
+            data[key] = value
+            if key == "Title" then
+                titletext.Text = value
+            elseif key == "MainColor" then
+                frame.BackgroundColor3 = value
+            elseif key == "TextColor" then
+                for _,v in frame:GetDescendants() do
+                    if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox") then
+                        v.TextColor3 = value
+                    end
+                end
+            elseif key == "MainColor2" then
+                topbar.BackgroundColor3 = value
+            end
+        end
+    })
+    frame.Name = name
+    frame.Size = UDim2.new(0.5,0,0.5,0)
+    frame.AnchorPoint = Vector2.new(0.5,0.5)
+    frame.Position = UDim2.new(0.5,0,0.5,0)
+    frame.BackgroundColor3 = data.MainColor
+    topbar.Name = "TopBar"
+    topbar.BackgroundColor3 = data.MainColor2
+    topbar.Size = UDim2.new(1,0,0.1,0)
+    topbar.Parent = frame
+    titletext.Name = "Title"
+    titletext.Text = data.Title
+    titletext.TextScaled = true
+    titletext.TextColor3 = data.TextColor
+    titletext.BackgroundTransparency = 1
+    titletext.Size = UDim2.new(0.5,0,1,0)
+    titletext.Parent = topbar
+    frame.Parent = screengui
+    return window
 end
-LibraryImport()
-return Library
