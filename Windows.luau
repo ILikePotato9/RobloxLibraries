@@ -28,6 +28,7 @@ local function LibraryImport()
         titletext.TextScaled = true
         titletext.TextXAlignment = Enum.TextXAlignment.Left
         titletext.TextYAlignment = Enum.TextYAlignment.Center
+        titletext.Font = Enum.Font.GothamBold
         titletext.Parent = topbar
         window.Parent = screengui
         return window
