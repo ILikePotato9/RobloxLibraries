@@ -30,6 +30,7 @@ local function LibraryImport()
         titletext.TextYAlignment = Enum.TextYAlignment.Center
         titletext.Parent = topbar
         window.Parent = screengui
+        return window
     end
 end
 LibraryImport()
