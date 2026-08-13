@@ -46,6 +46,7 @@ local function Window(name,title,screengui)
             local tabInstance = Instance.new("TextButton")
             tabInstance.BackgroundColor3 = color
             tabInstance.Text = title
+            tabInstance.Name = name
             tabInstance.TextColor3 = data.TextColor
             tabInstance.Size = UDim2.new(1,0,0,40)
             tabInstance.Parent = sidebar
